@@ -26,7 +26,7 @@ zohor_get_report = function(zohor_report,
   #convert report to a tibble
   if(status_response == 200){
     content_text = content(response_report, "text")
-    remove_this = glue("var zoho{zc_ownername}view[0-9][0-9][0-9] = ")
+    remove_this = glue("var zoho{zohor_ownername}view[0-9][0-9][0-9] = ")
     content_clean = str_remove(content_text, remove_this)
     content_clean2 = str_remove(content_clean,";$" )
 
