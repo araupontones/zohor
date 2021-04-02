@@ -36,7 +36,7 @@ zohor_get_report = function(zohor_report,
     new_col_names = str_remove(names(tibble_raw), ".+(?=\\.)\\.")
 
     message(glue("OK: status of query is {status_response}, a tibble with {nrow(tibble_raw)} observations
-             has been created for {report}"))
+             has been created for {zohor_report}"))
 
     return(tibble_raw)
 
