@@ -42,9 +42,39 @@ get_report <- function(
   message(status)
 
 
-  reporte = fromJSON(content(response_report, 'text'))$data
+  raw_report <- fromJSON(content(response_report, 'text'))$data
 
-  return(reporte)
+
+  #re-format to extract the columns with class data.frate
+  formated_report <- raw_report
+  for(cols in names(formated_report)){
+
+    #check the class of every column
+    clase <- class(formated_report[[cols]])
+
+
+    if(clase == "data.frame") {
+
+      #remove data frame from main table
+      formated_report = select(formated_report, - cols)
+
+      #create own data set for this
+      extracted_table = raw_report[[cols]]
+
+      names(extracted_table) <- c(cols, glue("ID_{cols}"))
+
+      #bind tables
+      formated_report <- cbind(formated_report, extracted_table)
+
+
+
+    }
+
+  }
+
+
+
+  return(formated_report)
 
 }
 
