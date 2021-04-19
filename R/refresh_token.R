@@ -42,6 +42,10 @@ refresh_token <- function(
 
       new_token <- contenido$access_token
 
+      #assign new token and time when it was generated to global environment
+      assign("new_token", new_token, envir = globalenv()) ##save token in global environment
+      assign("last_token_refreshed", Sys.time(), envir = globalenv()) #last time token was generated
+
 
       message("A new access token has been generated")
 

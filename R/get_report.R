@@ -27,7 +27,8 @@ get_report <- function(
   report_link_name,
   access_token,
   criteria = "",
-  limit = 200
+  limit = 200,
+  from = 1
 ){
 
   query_report <- glue("{url_app}/api/v2/{account_owner_name}/{app_link_name}/report/{report_link_name}")
@@ -35,7 +36,8 @@ get_report <- function(
   response_report <-  GET(query_report,
                           add_headers(Authorization = glue('Zoho-oauthtoken {access_token}')),
                           query = list(criteria = criteria,
-                                       limit = limit)) #filter by country
+                                       limit = limit,
+                                       from = from)) #filter by country
 
   status <- status_code(response_report)
 
