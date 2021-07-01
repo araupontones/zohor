@@ -1,6 +1,58 @@
 # zohor
 Zoho creator API with R
 
+#Example (look to repo cv/03_download_zoho.R)
+:
+```
+
+#define parameters of app -------------------------------------------------------
+app <- "cv"
+report <- "All_Projects"
+
+refresh_token = "..."
+
+#refresh zoho token --------------------------------------------------------------
+new_token <- zohor::refresh_token(
+  base_url = "https://accounts.zoho.com",
+  client_id = "..",
+  client_secret = "..",
+  refresh_token = refresh_token
+)
+
+
+ 
+
+
+#download data -----------------------------------------------------------------
+projects <-zohor::get_report(url_app = "https://creator.zoho.com" ,
+                  account_owner_name = ".." ,
+                  app_link_name = "..",
+                  report_link_name = "All_Projects",
+                  access_token = new_token,
+                  criteria = "ID != 0",
+                  from = 1)
+
+#function to unnest multiple select variables -------------------------------
+get_value_from_list<- function(x){
+  
+  lapply(x, function(y){
+    
+    str_flatten(y[[1]], collapse = ", ")
+  })
+  
+  
+}
+
+
+#unnest list columns (multiple select variables)
+projects_unnested <- projects %>%   
+  mutate_if(is.list,get_value_from_list)
+ 
+
+
+
+```
+
 ## To do:
 
 * Improve criteria argument of `get_report`
