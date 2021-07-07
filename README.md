@@ -32,22 +32,17 @@ projects <-zohor::get_report(url_app = "https://creator.zoho.com" ,
                   criteria = "ID != 0",
                   from = 1)
 
-#function to unnest multiple select variables -------------------------------
-get_value_from_list<- function(x){
-  
-  lapply(x, function(y){
-    
-    str_flatten(y[[1]], collapse = ", ")
-  })
-  
-  
-}
-
-
-#unnest list columns (multiple select variables)
-projects_unnested <- projects %>%   
-  mutate_if(is.list,get_value_from_list)
- 
+#download bulk (see test.R in zohor)
+invoices <- get_report_bulk(url_app = "https://creator.zoho.com" ,
+                      account_owner_name = ".." ,
+                      app_link_name = "..",
+                      report_link_name = "All_Projects",
+                      access_token = new_token,
+                      criteria = "ID != 0",
+                      from = 1,
+                      client_id = client_id,
+                      client_secret = client_secret,
+                      refresh_token = refresh_token)
 
 
 
