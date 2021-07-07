@@ -41,7 +41,16 @@ get_report <- function(
 
   status <- status_code(response_report)
 
-  message(status)
+ #report status to client
+
+  if(status == 200){
+
+    cli::cli_alert_success(status)
+  } else {
+
+    cli::cli_alert_danger(status)
+
+  }
 
 
   raw_report <- fromJSON(content(response_report, 'text'))$data
