@@ -110,7 +110,8 @@ get_report_bulk <- function(
 
   ##unnest variables in list format
   reporte_clean <- reporte %>%
-    mutate_if(is.list, unnest_value_from_list)
+    mutate_if(is.list, unnest_value_from_list) %>%
+    mutate_if(is.list, unlist)
 
 
   return(reporte_clean)
